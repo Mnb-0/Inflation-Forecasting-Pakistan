@@ -9,7 +9,7 @@ library(tidyr)
 library(zoo)
 
 # Load dataset
-data <- read_csv("dataset.csv")
+data <- read_csv("PK_FinData_1975_2024.csv", na = c("", "NA", ".."))
 print(data)
 
 # Transpose and clean
@@ -21,7 +21,6 @@ data_t <- data %>%
 # Convert year row to column
 data_t$Year <- rownames(data_t)
 data_t$Year <- as.integer(str_extract(data_t$Year, "\\d{4}"))
-colnames()
 # Replace '..' with NA
  data_t_clean <- data_t %>%
    mutate(across(where(is.numeric), ~ ifelse(is.na(.), median(., na.rm = TRUE), .)))
